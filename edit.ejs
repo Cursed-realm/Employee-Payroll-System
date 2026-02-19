@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee - Employee Payroll System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">👤</div>
+            <span>EMPLOYEE</span> PAYROLL
+        </div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Form Container -->
+        <div class="form-container">
+            <h2 class="form-title">Edit Employee</h2>
+
+            <!-- Error Messages -->
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="message error"><%= error %></div>
+            <% } %>
+
+            <form method="POST" action="/edit/<%= employee.id %>">
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter full name" value="<%= employee.name %>" required>
+                </div>
+
+                <!-- Profile Image Selection -->
+                <div class="profile-image-group">
+                    <label class="profile-image-label">Profile Image</label>
+                    <div class="image-options">
+                        <label class="image-option">
+                            <input type="radio" name="profileImage" value="">
+                            <div class="image-thumbnail" style="background-color: #eee; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%;">
+                                ❌
+                            </div>
+                        </label>
+                        <label class="image-option">
+                            <input type="radio" name="profileImage" value="avatar1.jpg" <% if(employee.profileImage === 'avatar1.jpg') { %>checked<% } %>>
+                            <img src="/images/avatar1.jpg" alt="Avatar 1" class="image-thumbnail">
+                        </label>
+                        <label class="image-option">
+                            <input type="radio" name="profileImage" value="avatar2.jpg" <% if(employee.profileImage === 'avatar2.jpg') { %>checked<% } %>>
+                            <img src="/images/avatar2.jpg" alt="Avatar 2" class="image-thumbnail">
+                        </label>
+                        <label class="image-option">
+                            <input type="radio" name="profileImage" value="avatar3.jpg" <% if(employee.profileImage === 'avatar3.jpg') { %>checked<% } %>>
+                            <img src="/images/avatar3.jpg" alt="Avatar 3" class="image-thumbnail">
+                        </label>
+                        <label class="image-option">
+                            <input type="radio" name="profileImage" value="avatar4.jpg" <% if(employee.profileImage === 'avatar4.jpg') { %>checked<% } %>>
+                            <img src="/images/avatar4.jpg" alt="Avatar 4" class="image-thumbnail">
+                        </label>
+                    </div>
+                    <p style="color: #95a5a6; font-size: 12px; margin-top: 10px;">Select a profile image or X to remove current image</p>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="gender" value="Male" <% if(employee.gender === 'Male') { %>checked<% } %> required>
+                            Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female" <% if(employee.gender === 'Female') { %>checked<% } %> required>
+                            Female
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Department -->
+                <div class="form-group">
+                    <label>Department</label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="departments" value="HR" <% if(employee.departments && employee.departments.includes('HR')) { %>checked<% } %>>
+                            HR
+                        </label>
+                        <label>
+                            <input type="checkbox" name="departments" value="Sales" <% if(employee.departments && employee.departments.includes('Sales')) { %>checked<% } %>>
+                            Sales
+                        </label>
+                        <label>
+                            <input type="checkbox" name="departments" value="Finance" <% if(employee.departments && employee.departments.includes('Finance')) { %>checked<% } %>>
+                            Finance
+                        </label>
+                        <label>
+                            <input type="checkbox" name="departments" value="Engineer" <% if(employee.departments && employee.departments.includes('Engineer')) { %>checked<% } %>>
+                            Engineer
+                        </label>
+                        <label>
+                            <input type="checkbox" name="departments" value="Others" <% if(employee.departments && employee.departments.includes('Others')) { %>checked<% } %>>
+                            Others
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Salary -->
+                <div class="form-group">
+                    <label for="salary">Salary</label>
+                    <select id="salary" name="salary" required>
+                        <option value="">Select Salary</option>
+                        <option value="10000" <% if(employee.salary === '10000') { %>selected<% } %>>₹ 10,000</option>
+                        <option value="15000" <% if(employee.salary === '15000') { %>selected<% } %>>₹ 15,000</option>
+                        <option value="20000" <% if(employee.salary === '20000') { %>selected<% } %>>₹ 20,000</option>
+                        <option value="25000" <% if(employee.salary === '25000') { %>selected<% } %>>₹ 25,000</option>
+                        <option value="30000" <% if(employee.salary === '30000') { %>selected<% } %>>₹ 30,000</option>
+                        <option value="40000" <% if(employee.salary === '40000') { %>selected<% } %>>₹ 40,000</option>
+                        <option value="50000" <% if(employee.salary === '50000') { %>selected<% } %>>₹ 50,000</option>
+                        <option value="60000" <% if(employee.salary === '60000') { %>selected<% } %>>₹ 60,000</option>
+                        <option value="75000" <% if(employee.salary === '75000') { %>selected<% } %>>₹ 75,000</option>
+                        <option value="100000" <% if(employee.salary === '100000') { %>selected<% } %>>₹ 100,000</option>
+                    </select>
+                </div>
+
+                <!-- Start Date -->
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <div class="date-group">
+                        <select name="startDay" id="startDay" required>
+                            <option value="">Day</option>
+                            <% for(let i = 1; i <= 31; i++) { %>
+                                <option value="<%= i %>" <% if(employee.startDate && employee.startDate.split(' ')[0] == i) { %>selected<% } %>><%= i %></option>
+                            <% } %>
+                        </select>
+                        <select name="startMonth" id="startMonth" required>
+                            <option value="">Month</option>
+                            <option value="Jan" <% if(employee.startDate && employee.startDate.includes('Jan')) { %>selected<% } %>>January</option>
+                            <option value="Feb" <% if(employee.startDate && employee.startDate.includes('Feb')) { %>selected<% } %>>February</option>
+                            <option value="Mar" <% if(employee.startDate && employee.startDate.includes('Mar')) { %>selected<% } %>>March</option>
+                            <option value="Apr" <% if(employee.startDate && employee.startDate.includes('Apr')) { %>selected<% } %>>April</option>
+                            <option value="May" <% if(employee.startDate && employee.startDate.includes('May')) { %>selected<% } %>>May</option>
+                            <option value="Jun" <% if(employee.startDate && employee.startDate.includes('Jun')) { %>selected<% } %>>June</option>
+                            <option value="Jul" <% if(employee.startDate && employee.startDate.includes('Jul')) { %>selected<% } %>>July</option>
+                            <option value="Aug" <% if(employee.startDate && employee.startDate.includes('Aug')) { %>selected<% } %>>August</option>
+                            <option value="Sep" <% if(employee.startDate && employee.startDate.includes('Sep')) { %>selected<% } %>>September</option>
+                            <option value="Oct" <% if(employee.startDate && employee.startDate.includes('Oct')) { %>selected<% } %>>October</option>
+                            <option value="Nov" <% if(employee.startDate && employee.startDate.includes('Nov')) { %>selected<% } %>>November</option>
+                            <option value="Dec" <% if(employee.startDate && employee.startDate.includes('Dec')) { %>selected<% } %>>December</option>
+                        </select>
+                        <select name="startYear" id="startYear" required>
+                            <option value="">Year</option>
+                            <% for(let i = new Date().getFullYear(); i >= 2015; i--) { %>
+                                <% const yearStr = employee.startDate ? employee.startDate.split(' ')[2] : null; %>
+                                <option value="<%= i %>" <% if(yearStr == i) { %>selected<% } %>><%= i %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" placeholder="Add any additional notes..."><%= employee.notes || '' %></textarea>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="/" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const name = document.getElementById('name').value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const departments = document.querySelectorAll('input[name="departments"]:checked');
+            const salary = document.getElementById('salary').value;
+            const startDay = document.getElementById('startDay').value;
+            const startMonth = document.getElementById('startMonth').value;
+            const startYear = document.getElementById('startYear').value;
+
+            if (!name) {
+                alert('Please enter employee name');
+                e.preventDefault();
+                return;
+            }
+
+            if (!gender) {
+                alert('Please select gender');
+                e.preventDefault();
+                return;
+            }
+
+            if (departments.length === 0) {
+                alert('Please select at least one department');
+                e.preventDefault();
+                return;
+            }
+
+            if (!salary) {
+                alert('Please select salary');
+                e.preventDefault();
+                return;
+            }
+
+            if (!startDay || !startMonth || !startYear) {
+                alert('Please select complete start date');
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
